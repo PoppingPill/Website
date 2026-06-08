@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaHub - Personal Media Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                <span>MediaHub</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </li>
+                <li class="nav-item" data-page="videos">
+                    <i class="fas fa-video"></i>
+                    <span>Videos</span>
+                </li>
+                <li class="nav-item" data-page="photos">
+                    <i class="fas fa-image"></i>
+                    <span>Photos</span>
+                </li>
+                <li class="nav-item" data-page="favorites">
+                    <i class="fas fa-heart"></i>
+                    <span>Favorites</span>
+                </li>
+                <li class="nav-item" data-page="recent">
+                    <i class="fas fa-clock"></i>
+                    <span>Recently Added</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+                <li class="nav-item" data-page="external">
+                    <i class="fas fa-globe"></i>
+                    <span>External Search</span>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navigation Bar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search videos, photos, tags...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="upload-btn" id="uploadBtn">
+                    <i class="fas fa-upload"></i>
+                    <span>Upload</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <div class="user-profile">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content Container -->
+        <div class="page-container" id="pageContainer">
+            <!-- Home Page -->
+            <section class="page active" id="homePage">
+                <div class="featured-section">
+                    <h2>Featured</h2>
+                    <div class="featured-carousel" id="featuredCarousel"></div>
+                </div>
+                <div class="recent-section">
+                    <h2>Recently Added</h2>
+                    <div class="media-grid" id="recentGrid"></div>
+                </div>
+                <div class="continue-section">
+                    <h2>Continue Watching</h2>
+                    <div class="media-grid" id="continueWatching"></div>
+                </div>
+                <div class="recommendations-section">
+                    <h2>Recommended For You</h2>
+                    <div class="media-grid" id="recommendations"></div>
+                </div>
+            </section>
+
+            <!-- Videos Page -->
+            <section class="page" id="videosPage">
+                <div class="page-header">
+                    <h1>Videos</h1>
+                    <div class="page-controls">
+                        <select class="sort-select" id="videoSort">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="mostViewed">Most Viewed</option>
+                            <option value="alphabetical">Alphabetical</option>
+                        </select>
+                        <select class="filter-select" id="videoFilter">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="media-grid" id="videosGrid"></div>
+            </section>
+
+            <!-- Video Player Page -->
+            <section class="page" id="videoPlayerPage">
+                <div class="video-player-container">
+                    <div class="video-main">
+                        <div class="video-wrapper">
+                            <video id="videoPlayer" controls>
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-info">
+                            <h1 id="videoTitle">Video Title</h1>
+                            <div class="video-meta">
+                                <span id="videoViews">0 views</span>
+                                <span id="videoDate">Upload date</span>
+                                <button class="favorite-btn" id="videoFavorite">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <p class="video-description" id="videoDescription">Video description goes here.</p>
+                            <div class="video-tags" id="videoTags"></div>
+                        </div>
+                    </div>
+                    <div class="video-sidebar">
+                        <h3>Related Videos</h3>
+                        <div class="related-videos" id="relatedVideos"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Photos Page -->
+            <section class="page" id="photosPage">
+                <div class="page-header">
+                    <h1>Photos</h1>
+                    <div class="page-controls">
+                        <select class="filter-select" id="photoFilter">
+                            <option value="all">All Albums</option>
+                        </select>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="masonry">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="photos-grid" id="photosGrid"></div>
+            </section>
+
+            <!-- Photo Lightbox -->
+            <section class="page" id="photoLightbox">
+                <div class="lightbox-container">
+                    <button class="lightbox-close" id="lightboxClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button class="lightbox-prev" id="lightboxPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="lightbox-next" id="lightboxNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="lightbox-main">
+                        <img id="lightboxImage" src="" alt="">
+                        <div class="lightbox-info">
+                            <h2 id="lightboxTitle">Photo Title</h2>
+                            <p id="lightboxDescription">Description</p>
+                            <div class="lightbox-controls">
+                                <button class="lightbox-btn" id="lightboxDownload">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="lightbox-btn" id="lightboxSlideshow">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="lightbox-btn" id="lightboxZoom">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Favorites Page -->
+            <section class="page" id="favoritesPage">
+                <h1>Favorites</h1>
+                <div class="media-grid" id="favoritesGrid"></div>
+            </section>
+
+            <!-- Recently Added Page -->
+            <section class="page" id="recentPage">
+                <h1>Recently Added</h1>
+                <div class="media-grid" id="recentPageGrid"></div>
+            </section>
+
+            <!-- Settings Page -->
+            <section class="page" id="settingsPage">
+                <h1>Settings</h1>
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h2>Appearance</h2>
+                        <div class="setting-item">
+                            <label>Dark Mode</label>
+                            <input type="checkbox" id="darkModeToggle" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Accent Color</label>
+                            <input type="color" id="accentColor" value="#e50914">
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h2>Media Management</h2>
+                        <div class="setting-item">
+                            <label>Auto-play Next Video</label>
+                            <input type="checkbox" id="autoplayToggle">
+                        </div>
+                        <div class="setting-item">
+                            <label>Default Video Quality</label>
+                            <select id="videoQuality">
+                                <option value="auto">Auto</option>
+                                <option value="1080p">1080p</option>
+                                <option value="720p">720p</option>
+                                <option value="480p">480p</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h2>External Sources</h2>
+                        <div class="setting-item">
+                            <label>Enable External Search</label>
+                            <input type="checkbox" id="externalSearchToggle" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Default Source</label>
+                            <select id="defaultSource">
+                                <option value="e621">e621.net</option>
+                                <option value="danbooru">Danbooru</option>
+                                <option value="gelbooru">Gelbooru</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>API Key (Optional)</label>
+                            <input type="text" id="apiKey" placeholder="Enter API key if required">
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h2>Data</h2>
+                        <button class="settings-btn" id="exportData">Export Data</button>
+                        <button class="settings-btn" id="importData">Import Data</button>
+                        <button class="settings-btn danger" id="clearData">Clear All Data</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- External Search Page -->
+            <section class="page" id="externalPage">
+                <h1>External Search</h1>
+                <div class="external-search-container">
+                    <div class="search-controls">
+                        <select class="source-select" id="sourceSelect">
+                            <option value="e621">e621.net</option>
+                            <option value="danbooru">Danbooru</option>
+                            <option value="gelbooru">Gelbooru</option>
+                        </select>
+                        <div class="search-input-wrapper">
+                            <input type="text" class="external-search-bar" id="externalSearchBar" placeholder="Search tags (e.g., cat, landscape, nature)">
+                            <button class="search-btn" id="externalSearchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <select class="rating-select" id="ratingSelect">
+                            <option value="all">All Ratings</option>
+                            <option value="safe">Safe</option>
+                            <option value="questionable">Questionable</option>
+                            <option value="explicit">Explicit</option>
+                        </select>
+                    </div>
+                    <div class="search-options">
+                        <label class="option-label">
+                            <input type="checkbox" id="importAuto" checked>
+                            <span>Auto-import on selection</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="checkbox" id="highQuality" checked>
+                            <span>High quality only</span>
+                        </label>
+                    </div>
+                    <div class="external-results" id="externalResults">
+                        <div class="empty-state">
+                            <i class="fas fa-globe"></i>
+                            <h3>Search External Sources</h3>
+                            <p>Enter tags to search for media from external sources like e621.net</p>
+                        </div>
+                    </div>
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn" id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-info" id="pageInfo">Page 1</span>
+                        <button class="page-btn" id="nextPage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Media</h2>
+                <button class="modal-close" id="uploadModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-tabs">
+                    <button class="upload-tab active" data-type="video">Videos</button>
+                    <button class="upload-tab" data-type="photo">Photos</button>
+                </div>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag and drop files here or click to browse</p>
+                    <input type="file" id="fileInput" multiple accept="video/*,image/*">
+                </div>
+                <div class="upload-form" id="uploadForm">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="uploadTitle" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="uploadDescription" placeholder="Enter description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags (comma separated)</label>
+                        <input type="text" id="uploadTags" placeholder="tag1, tag2, tag3">
+                    </div>
+                    <div class="form-group">
+                        <label>Category/Album</label>
+                        <input type="text" id="uploadCategory" placeholder="Enter category or album name">
+                    </div>
+                    <button class="btn-primary" id="uploadSubmit">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Media</h2>
+                <button class="modal-close" id="editModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="editTitle" placeholder="Enter title">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editDescription" placeholder="Enter description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="editTags" placeholder="tag1, tag2, tag3">
+                </div>
+                <div class="form-group">
+                    <label>Category/Album</label>
+                    <input type="text" id="editCategory" placeholder="Enter category or album name">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" id="editSubmit">Save Changes</button>
+                    <button class="btn-danger" id="editDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
